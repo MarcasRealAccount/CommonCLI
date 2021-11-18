@@ -1,5 +1,7 @@
 #include "CommonCLI/KeyValue/KVVersion.h"
+#include "CommonCLI/Colors.h"
 #include "CommonCLI/KeyValue/KVHandler.h"
+#include "Premake/Defines.h"
 
 #include <iostream>
 #include <sstream>
@@ -16,10 +18,19 @@ namespace CommonCLI::KeyValue::Version {
 		std::ostringstream versionStr;
 
 		if (values.size() > 0 && (values[0] == "silent" || values[0] == "s")) {
-			versionStr << getVersionStr() << '\n';
+			versionStr << getVersionStr();
 			usedValueCount = 1;
 		} else {
-			versionStr << context.getHandler().getProgramName() << " version is " << getVersionStr() << '\n';
+			versionStr << Colors::Info << context.getHandler().getProgramName() << " version is " << Colors::Arg << '\'' << getVersionStr() << "'\n";
+			versionStr << Colors::Info << "Build for " << Colors::Arg << '\'';
+			Premake::printPremakeSystemFlags(versionStr, Premake::s_System);
+			versionStr << '\'' << Colors::Info << " (Config " << Colors::Arg << '\'';
+			Premake::printPremakeConfigFlags(versionStr, Premake::s_Config);
+			versionStr << '\'' << Colors::Info << ", Platform " << Colors::Arg << '\'';
+			Premake::printPremakePlatformFlags(versionStr, Premake::s_Platform);
+			versionStr << '\'' << Colors::Info << ", Toolset " << Colors::Arg << '\'';
+			Premake::printPremakeToolsetFlags(versionStr, Premake::s_Toolset);
+			versionStr << '\'' << Colors::Info << ")";
 		}
 
 		context.addMessage(versionStr.str(), true);

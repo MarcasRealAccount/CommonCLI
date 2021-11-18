@@ -1,6 +1,6 @@
 workspace("CommonCLI")
 	configurations({ "Debug", "Release", "Dist" })
-	platforms({ "x64" })
+	platforms({ "x86", "x64", "arm", "arm64" })
 	
 	cppdialect("C++20")
 	rtti("Off")
@@ -47,8 +47,17 @@ workspace("CommonCLI")
 	filter("toolset:gcc")
 		defines({ "PREMAKE_TOOLSET=PREMAKE_TOOLSET_GCC" })
 
+	filter("platforms:x86")
+		defines({ "PREMAKE_PLATFORM=PREMAKE_PLATFORM_X86" })
+
 	filter("platforms:x64")
 		defines({ "PREMAKE_PLATFORM=PREMAKE_PLATFORM_AMD64" })
+
+	filter("platforms:arm")
+		defines({ "PREMAKE_PLATFORM=PREMAKE_PLATFORM_ARM32" })
+
+	filter("platforms:arm64")
+		defines({ "PREMAKE_PLATFORM=PREMAKE_PLATFORM_ARM64" })
 
 	filter({})
 

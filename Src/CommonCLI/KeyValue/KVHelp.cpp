@@ -58,6 +58,8 @@ namespace CommonCLI::KeyValue::Help {
 			for (std::size_t i = 0; i < keys.size(); ++i) {
 				auto& keyString = keyStrings[i];
 				auto& key       = keys[i];
+				if (i > 0)
+					helpStr << '\n';
 				helpStr << Colors::Info << "    - " << Colors::Usage << '\'' << keyString << '\'' << Colors::Info;
 				helpStr << std::string(largestStrlen - keyString.size(), ' ') << '|';
 				auto& help = key->getHelp();
@@ -71,7 +73,6 @@ namespace CommonCLI::KeyValue::Help {
 					helpStr << ' ';
 					AddNote(helpStr, help.getNote());
 				}
-				helpStr << '\n';
 			}
 		}
 

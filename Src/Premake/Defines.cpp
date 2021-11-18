@@ -134,6 +134,20 @@ namespace Premake {
 				value &= ~PremakePlatformFlag::AMD64;
 				hasAppended = true;
 			}
+			if ((value & PremakePlatformFlag::ARM32) == PremakePlatformFlag::ARM32) {
+				if (hasAppended)
+					str << " | ";
+				str << "ARM32";
+				value &= ~PremakePlatformFlag::ARM32;
+				hasAppended = true;
+			}
+			if ((value & PremakePlatformFlag::ARM64) == PremakePlatformFlag::ARM64) {
+				if (hasAppended)
+					str << " | ";
+				str << "ARM64";
+				value &= ~PremakePlatformFlag::ARM64;
+				hasAppended = true;
+			}
 			if (static_cast<std::uint16_t>(value) != 0) {
 				if (hasAppended)
 					str << " | ";
