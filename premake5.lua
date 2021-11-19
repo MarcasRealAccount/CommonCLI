@@ -1,6 +1,6 @@
 workspace("CommonCLI")
 	configurations({ "Debug", "Release", "Dist" })
-	platforms({ "x86", "x64", "arm", "arm64" })
+	platforms({ "x86", "x64" })
 	
 	cppdialect("C++20")
 	rtti("Off")
