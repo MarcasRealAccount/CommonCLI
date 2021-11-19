@@ -1,6 +1,6 @@
 workspace("CommonCLI")
 	configurations({ "Debug", "Release", "Dist" })
-if _OS == "macosx"
+if _OS == "macosx" then
 	platforms({ "x64" })
 else
 	platforms({ "x86", "x64" })
