@@ -25,6 +25,15 @@ namespace ANSI {
 	void setup();
 	void restore();
 
+	struct RGB {
+	public:
+		constexpr RGB(std::uint8_t r, std::uint8_t g, std::uint8_t b)
+			: r(r), g(g), b(b) {}
+		
+	public:
+		std::uint8_t r, g, b;
+	};
+
 	struct Color {
 	public:
 		constexpr Color(std::uint8_t id)
@@ -35,9 +44,7 @@ namespace ANSI {
 
 	public:
 		union {
-			struct RGB {
-				std::uint8_t r, g, b;
-			} m_RGB;
+			RGB m_RGB;
 			std::uint32_t m_Color;
 		};
 		std::uint8_t m_Mode;
@@ -91,6 +98,8 @@ namespace ANSI {
 
 	struct ANSIImplementation {
 	public:
+		virtual ~ANSIImplementation() = default;
+		
 		// Escapes
 		virtual std::ostream& ESC(std::ostream& stream) = 0;
 		virtual std::ostream& CSI(std::ostream& stream) = 0;

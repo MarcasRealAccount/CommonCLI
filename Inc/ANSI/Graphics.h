@@ -33,9 +33,7 @@ namespace ANSI {
 
 	public:
 		union {
-			struct RGB {
-				std::uint8_t r, g, b;
-			} m_RGB;
+			RGB m_RGB;
 			std::uint32_t m_Color;
 		};
 		std::uint8_t m_Mode;
@@ -62,9 +60,7 @@ namespace ANSI {
 
 	public:
 		union {
-			struct RGB {
-				std::uint8_t r, g, b;
-			} m_RGB;
+			RGB m_RGB;
 			std::uint32_t m_Color;
 		};
 		std::uint8_t m_Mode;
@@ -91,9 +87,7 @@ namespace ANSI {
 
 	public:
 		union {
-			struct RGB {
-				std::uint8_t r, g, b;
-			} m_RGB;
+			RGB m_RGB;
 			std::uint32_t m_Color;
 		};
 		std::uint8_t m_Mode;
