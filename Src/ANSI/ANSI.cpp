@@ -26,8 +26,14 @@ namespace ANSI {
 			m_TerminalName   = "cmd";
 			m_Implementation = new Terminals::CMD();
 		} else if constexpr (Premake::s_IsSystemUnix) {
-			m_TerminalName   = std::getenv("TERM");
-			m_Implementation = new Terminals::ExpectEverything();
+			auto term        = std::getenv("TERM");
+			if (term) {
+				m_TerminalName   = term;
+				m_Implementation = new Terminals::ExpectEverything();
+			} else {
+				m_TerminalName   = "";
+				m_Implementation = new Terminals::Unsupported();
+			}
 		} else {
 			m_TerminalName   = "";
 			m_Implementation = new Terminals::Unsupported();
