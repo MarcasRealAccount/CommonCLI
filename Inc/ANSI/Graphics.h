@@ -3,6 +3,7 @@
 #include "ANSI.h"
 
 namespace ANSI {
+	bool SupportsGraphics();
 	std::ostream& GraphicsBold(std::ostream& stream);
 	std::ostream& GraphicsDim(std::ostream& stream);
 	std::ostream& GraphicsItalic(std::ostream& stream);

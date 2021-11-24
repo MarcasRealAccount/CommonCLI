@@ -4,6 +4,10 @@
 
 namespace ANSI::Terminals {
 	struct Unsupported : public ANSIImplementation {
+		virtual bool SupportsCursor() override { return false; }
+		virtual bool SupportsErase() override { return false; }
+		virtual bool SupportsGraphics() override { return false; }
+		
 		// Escapes
 		virtual std::ostream& ESC(std::ostream& stream) override { return stream; }
 		virtual std::ostream& CSI(std::ostream& stream) override { return stream; }

@@ -4,6 +4,10 @@
 
 namespace ANSI::Terminals {
 	struct ExpectEverything : public ANSIImplementation {
+		virtual bool SupportsCursor() override { return true; }
+		virtual bool SupportsErase() override { return true; }
+		virtual bool SupportsGraphics() override { return true; }
+		
 		// Escapes
 		virtual std::ostream& ESC(std::ostream& stream) override { return stream << '\033'; }
 		virtual std::ostream& CSI(std::ostream& stream) override { return stream << "\033["; }

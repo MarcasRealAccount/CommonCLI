@@ -1,6 +1,10 @@
 #include "ANSI/Graphics.h"
 
 namespace ANSI {
+	bool SupportsGraphics() {
+		return ANSI::s_Ansi.getImplementation().SupportsGraphics();
+	}
+	
 	std::ostream& GraphicsBold(std::ostream& stream) {
 		return ANSI::s_Ansi.getImplementation().GraphicsBold(stream);
 	}

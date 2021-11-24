@@ -1,6 +1,10 @@
 #include "ANSI/Erase.h"
 
 namespace ANSI {
+	bool SupportsErase() {
+		return ANSI::s_Ansi.getImplementation().SupportsErase();
+	}
+	
 	std::ostream& EraseInDisplay(std::ostream& stream) {
 		return ANSI::s_Ansi.getImplementation().EraseInDisplay(stream);
 	}

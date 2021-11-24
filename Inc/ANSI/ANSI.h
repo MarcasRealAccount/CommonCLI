@@ -100,6 +100,10 @@ namespace ANSI {
 	public:
 		virtual ~ANSIImplementation() = default;
 		
+		virtual bool SupportsCursor()   = 0;
+		virtual bool SupportsErase()    = 0;
+		virtual bool SupportsGraphics() = 0;
+		
 		// Escapes
 		virtual std::ostream& ESC(std::ostream& stream) = 0;
 		virtual std::ostream& CSI(std::ostream& stream) = 0;

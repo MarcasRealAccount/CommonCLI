@@ -1,6 +1,10 @@
 #include "ANSI/Cursor.h"
 
 namespace ANSI {
+	bool SupportsCursor() {
+		return ANSI::s_Ansi.getImplementation().SupportsCursor();
+	}
+	
 	std::ostream& CursorHome(std::ostream& stream) {
 		return ANSI::s_Ansi.getImplementation().CursorHome(stream);
 	}

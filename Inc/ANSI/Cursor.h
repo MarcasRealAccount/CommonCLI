@@ -3,6 +3,8 @@
 #include "Escapes.h"
 
 namespace ANSI {
+	bool SupportsCursor();
+	
 	std::ostream& CursorHome(std::ostream& stream);
 
 	struct CursorPosition {

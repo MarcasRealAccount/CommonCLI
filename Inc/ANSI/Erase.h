@@ -3,6 +3,7 @@
 #include "ANSI.h"
 
 namespace ANSI {
+	bool SupportsErase();
 	std::ostream& EraseInDisplay(std::ostream& stream);
 	std::ostream& EraseFromCursorToEndOfScreen(std::ostream& stream);
 	std::ostream& EraseFromCursorToBeginningOfScreen(std::ostream& stream);
