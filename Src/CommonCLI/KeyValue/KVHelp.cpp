@@ -18,7 +18,7 @@ namespace CommonCLI::KeyValue::Help {
 	Info::Info(std::string&& desc, std::string&& note)
 	    : m_Desc(std::move(desc)), m_Note(std::move(note)) { }
 
-	void Help::invoke(Key& self, HandlerContext& context, const std::vector<std::string_view>& values, std::size_t& usedValueCount) {
+	void Help::invoke([[maybe_unused]] Key& self, HandlerContext& context, const std::vector<std::string_view>& values, std::size_t& usedValueCount) {
 		std::ostringstream helpStr;
 
 		std::vector<const Key*> keys;

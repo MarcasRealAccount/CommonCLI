@@ -1,7 +1,7 @@
 #include "CommonCLI/KeyValue/KVVersion.h"
 #include "CommonCLI/Colors.h"
+#include "CommonCLI/Core.h"
 #include "CommonCLI/KeyValue/KVHandler.h"
-#include "Premake/Defines.h"
 
 #include <iostream>
 #include <sstream>
@@ -14,7 +14,7 @@ namespace CommonCLI::KeyValue::Version {
 	Version::Version(std::size_t major, std::size_t minor, std::size_t patch, std::string&& prefix, std::string&& suffix)
 	    : m_Major(major), m_Minor(minor), m_Patch(patch), m_Prefix(std::move(prefix)), m_Suffix(std::move(suffix)) { }
 
-	void Version::invoke(Key& self, HandlerContext& context, const std::vector<std::string_view>& values, std::size_t& usedValueCount) {
+	void Version::invoke([[maybe_unused]] Key& self, HandlerContext& context, const std::vector<std::string_view>& values, std::size_t& usedValueCount) {
 		std::ostringstream versionStr;
 
 		if (values.size() > 0 && (values[0] == "silent" || values[0] == "s")) {
@@ -23,13 +23,13 @@ namespace CommonCLI::KeyValue::Version {
 		} else {
 			versionStr << Colors::Info << context.getHandler().getProgramName() << " version is " << Colors::Arg << '\'' << getVersionStr() << "'\n";
 			versionStr << Colors::Info << "Build for " << Colors::Arg << '\'';
-			Premake::printPremakeSystemFlags(versionStr, Premake::s_System);
+			Core::printBuildSystemFlags(versionStr, Core::s_System);
 			versionStr << '\'' << Colors::Info << " (Config " << Colors::Arg << '\'';
-			Premake::printPremakeConfigFlags(versionStr, Premake::s_Config);
+			Core::printBuildConfigFlags(versionStr, Core::s_Config);
 			versionStr << '\'' << Colors::Info << ", Platform " << Colors::Arg << '\'';
-			Premake::printPremakePlatformFlags(versionStr, Premake::s_Platform);
+			Core::printBuildPlatformFlags(versionStr, Core::s_Platform);
 			versionStr << '\'' << Colors::Info << ", Toolset " << Colors::Arg << '\'';
-			Premake::printPremakeToolsetFlags(versionStr, Premake::s_Toolset);
+			Core::printBuildToolsetFlags(versionStr, Core::s_Toolset);
 			versionStr << '\'' << Colors::Info << ")";
 		}
 
