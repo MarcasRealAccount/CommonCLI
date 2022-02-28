@@ -22,7 +22,7 @@ namespace CommonCLI::KeyValue::Version {
 			usedValueCount = 1;
 		} else {
 			versionStr << Colors::Info << context.getHandler().getProgramName() << " version is " << Colors::Arg << '\'' << getVersionStr() << "'\n";
-			versionStr << Colors::Info << "Build for " << Colors::Arg << '\'';
+			versionStr << Colors::Info << "Built for " << Colors::Arg << '\'';
 			Core::printBuildSystemFlags(versionStr, Core::s_System);
 			versionStr << '\'' << Colors::Info << " (Config " << Colors::Arg << '\'';
 			Core::printBuildConfigFlags(versionStr, Core::s_Config);

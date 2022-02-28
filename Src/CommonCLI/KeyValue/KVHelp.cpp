@@ -61,12 +61,12 @@ namespace CommonCLI::KeyValue::Help {
 				if (i > 0)
 					helpStr << '\n';
 				helpStr << Colors::Info << "    - " << Colors::Usage << '\'' << keyString << '\'' << Colors::Info;
-				helpStr << std::string(largestStrlen - keyString.size(), ' ') << '|';
+				helpStr << std::string(largestStrlen - keyString.size() + 1, ' ') << '|';
 				auto& help = key->getHelp();
 				if (!help.getDesc().empty()) {
 					helpStr << ' ' << Colors::Info << help.getDesc() << '\n';
 					if (!help.getNote().empty()) {
-						helpStr << std::string(8 + largestStrlen, ' ') << "|    ";
+						helpStr << std::string(9 + largestStrlen, ' ') << "|    ";
 						AddNote(helpStr, help.getNote());
 					}
 				} else if (!help.getNote().empty()) {
