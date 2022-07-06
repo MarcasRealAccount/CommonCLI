@@ -3,6 +3,7 @@
 #include "ANSI.h"
 
 #if __cpp_lib_format
+	#include <sstream>
 	#include <format>
 #endif
 
