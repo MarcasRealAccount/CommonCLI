@@ -2,6 +2,10 @@
 
 #include "ANSI.h"
 
+#if __cpp_lib_format
+	#include <format>
+#endif
+
 namespace ANSI {
 	bool SupportsGraphics();
 	std::ostream& GraphicsBold(std::ostream& stream);
@@ -108,3 +112,112 @@ namespace ANSI {
 	std::ostream& GraphicsBackgroundDefault(std::ostream& stream);
 	std::ostream& GraphicsUnderlineDefault(std::ostream& stream);
 } // namespace ANSI
+
+#if __cpp_lib_format
+
+template <>
+struct std::formatter<ANSI::Color, char> {
+	using PC = basic_format_parse_context<char>;
+	template <class Out>
+	using FC = basic_format_context<Out, char>;
+
+	enum class EColorType {
+		Foreground,
+		Background,
+		Underline
+	} m_Type = EColorType::Foreground;
+
+	constexpr typename PC::iterator parse(PC& pc) {
+		auto itr = pc.begin();
+		if (itr == pc.end() || *itr == '}')
+			return itr;
+
+		switch (*itr) {
+		case 'b':
+			m_Type = EColorType::Background;
+			++itr;
+			break;
+		case 'u':
+			m_Type = EColorType::Underline;
+			++itr;
+			break;
+		}
+
+		if (itr == pc.end() && *itr != '}')
+			throw std::format_error("Expected '}'");
+		return itr;
+	}
+
+	template <class Out>
+	typename FC<Out>::iterator format(ANSI::Color color, FC<Out>& fc) const {
+		std::ostringstream str;
+		switch (m_Type) {
+		case EColorType::Foreground:
+			str << ANSI::GraphicsForegroundColor { color };
+			break;
+		case EColorType::Background:
+			str << ANSI::GraphicsBackgroundColor { color };
+			break;
+		case EColorType::Underline:
+			str << ANSI::GraphicsUnderlineColor { color };
+			break;
+		}
+		return std::format_to(fc.out(), "{}", str.str());
+	}
+};
+
+template <>
+struct std::formatter<ANSI::GraphicsForegroundColor, char> {
+	using PC = basic_format_parse_context<char>;
+	template <class Out>
+	using FC = basic_format_context<Out, char>;
+
+	constexpr typename PC::iterator parse(PC& pc) {
+		return pc.begin();
+	}
+
+	template <class Out>
+	typename FC<Out>::iterator format(ANSI::GraphicsForegroundColor color, FC<Out>& fc) const {
+		std::ostringstream str;
+		str << color;
+		return std::format_to(fc.out(), "{}", str.str());
+	}
+};
+
+template <>
+struct std::formatter<ANSI::GraphicsBackgroundColor, char> {
+	using PC = basic_format_parse_context<char>;
+	template <class Out>
+	using FC = basic_format_context<Out, char>;
+
+	constexpr typename PC::iterator parse(PC& pc) {
+		return pc.begin();
+	}
+
+	template <class Out>
+	typename FC<Out>::iterator format(ANSI::GraphicsBackgroundColor color, FC<Out>& fc) const {
+		std::ostringstream str;
+		str << color;
+		return std::format_to(fc.out(), "{}", str.str());
+	}
+};
+
+template <>
+struct std::formatter<ANSI::GraphicsUnderlineColor, char> {
+	using PC = basic_format_parse_context<char>;
+	template <class Out>
+	using FC = basic_format_context<Out, char>;
+
+	constexpr typename PC::iterator parse(PC& pc) {
+		return pc.begin();
+	}
+
+	template <class Out>
+	typename FC<Out>::iterator format(ANSI::GraphicsUnderlineColor color, FC<Out>& fc) const {
+		std::ostringstream str;
+		str << color;
+		return std::format_to(fc.out(), "{}", str.str());
+	}
+};
+
+#endif
